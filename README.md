@@ -14,7 +14,7 @@
 
 ---
 
-# 🚀 [Nome do Seu Projeto]
+# 🚀 [OS Master]
 
 ![Java Version](https://img.shields.io/badge/Java-24%2B-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-brightgreen)

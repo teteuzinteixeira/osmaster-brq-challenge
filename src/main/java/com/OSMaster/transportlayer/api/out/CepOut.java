@@ -3,7 +3,9 @@ package com.OSMaster.transportlayer.api.out;
 import com.OSMaster.transportlayer.dto.request.ConsultaCepRequest;
 import com.OSMaster.transportlayer.dto.response.ConsultaCepErrorResponse;
 import com.OSMaster.transportlayer.dto.response.ConsultaCepResponse;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,7 +16,15 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CepOut {
 
-    private final WebClient webClient = WebClient.create("http://localhost:8081");
+    @Value("${external.api.consultarCep.url}")
+    private String consultarCepUrl;
+
+    private WebClient webClient;
+
+    @PostConstruct
+    private void init() {
+        this.webClient = WebClient.create(consultarCepUrl);
+    }
 
     public ConsultaCepResponse consultaCep(String cep) {
         var request = new ConsultaCepRequest();

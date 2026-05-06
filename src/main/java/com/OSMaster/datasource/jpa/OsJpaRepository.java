@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Repository
 public interface OsJpaRepository extends JpaRepository<OsDataEntity, Long> {
 
@@ -15,4 +18,5 @@ public interface OsJpaRepository extends JpaRepository<OsDataEntity, Long> {
     @Transactional
     @Query("UPDATE OsDataEntity o SET o.isCompleted = true WHERE o.id = :id")
     void completeById(@Param("id") Long id);
+    List<OsDataEntity> findAllByDate(LocalDate date);
 }

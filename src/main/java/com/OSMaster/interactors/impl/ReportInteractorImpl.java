@@ -53,7 +53,7 @@ public class ReportInteractorImpl implements ReportInteractor {
         return consolidatedCsv.toString();
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 59 23 * * *")
     public void dailyReport() {
         var osList = osRepository.findAllByDate();
 

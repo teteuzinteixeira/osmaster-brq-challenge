@@ -24,8 +24,12 @@ public class OsInput {
 
     @PostMapping("/create")
     public ResponseEntity<?> createOs(@Valid @RequestBody CreateOsRequest request) {
-        var savedOs = createOsInteractor.createOs(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body("A ordem de serviço foi criada com sucesso! Número da OS: " + savedOs.getOsNumber());
+        try {
+            var savedOs = createOsInteractor.createOs(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body("A ordem de serviço foi criada com sucesso! Número da OS: " + savedOs.getOsNumber());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar a ordem de serviço: " + e.getMessage());
+        }
     }
 
     @PatchMapping("/{id}/complete")

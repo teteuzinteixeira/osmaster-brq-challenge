@@ -4,6 +4,9 @@ import com.OSMaster.datasource.dataobjects.OsDataEntity;
 import com.OSMaster.entities.OsEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class OsMapper {
 
@@ -26,5 +29,11 @@ public class OsMapper {
         osEntity.setDate(dataEntity.getDate());
         osEntity.setIsCompleted(dataEntity.getIsCompleted());
         return osEntity;
+    }
+
+    public List<OsEntity> toDomainEntity(List<OsDataEntity> dataEntities) {
+        return dataEntities.stream()
+                .map(this::toDomainEntity)
+                .collect(Collectors.toList());
     }
 }

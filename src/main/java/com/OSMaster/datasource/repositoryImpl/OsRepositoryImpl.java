@@ -7,6 +7,9 @@ import com.OSMaster.repository.OsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class OsRepositoryImpl implements OsRepository {
@@ -24,5 +27,11 @@ public class OsRepositoryImpl implements OsRepository {
     @Override
     public void completeById(Long id) {
         osJpaRepository.completeById(id);
+    }
+
+    @Override
+    public List<OsEntity> findAllByDate() {
+        var savedDataEntity = osJpaRepository.findAllByDate(LocalDate.now());
+        return osMapper.toDomainEntity(savedDataEntity);
     }
 }

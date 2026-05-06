@@ -1,5 +1,6 @@
 package com.OSMaster.transportlayer.api.out;
 
+import com.OSMaster.config.exception.GenericException;
 import com.OSMaster.interactors.LogInteractor;
 import com.OSMaster.transportlayer.dto.request.ConsultaCepRequest;
 import com.OSMaster.transportlayer.dto.response.ConsultaCepErrorResponse;
@@ -41,7 +42,7 @@ public class CepOut {
                         clientResponse.bodyToMono(ConsultaCepErrorResponse.class)
                                 .flatMap(error -> {
                                     logInteractor.finalizarLog(log, clientResponse.statusCode().value(), error.getMensagem());
-                                    return Mono.error(new RuntimeException(error.getMensagem()));
+                                    return Mono.error(new GenericException(error.getMensagem()));
                                 })
                 )
                 .toEntity(ConsultaCepResponse.class)

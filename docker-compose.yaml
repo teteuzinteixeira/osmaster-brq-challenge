@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:18
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: osmaster
+      POSTGRES_USER:
+      POSTGRES_PASSWORD:
+
+  wiremock:
+    image: wiremock/wiremock:2.35.0
+    container_name: wiremock
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./wiremock:/home/wiremock
+    command: ["--verbose", "--root-dir", "/home/wiremock"]
+
+volumes:
+  postgres_data:

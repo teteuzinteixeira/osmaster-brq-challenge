@@ -50,7 +50,12 @@ O projeto foi construído seguindo a Arquitetura Hexagonal evoluida pela equipe 
 1.  **Clone o repositório:** https://github.com/TeteuzinTeixeira/OsMaster-BRQ-challenge
 
 
-2.  **Crie as tabelas no banco de dados**
+2.  **Suba o container**
+    ```bash
+    docker compose up -d
+    ```
+
+3.  **Crie as tabelas no banco de dados**
     ```
     CREATE TABLE log (
         id UUID PRIMARY KEY NOT NULL,
@@ -71,7 +76,7 @@ O projeto foi construído seguindo a Arquitetura Hexagonal evoluida pela equipe 
     );
     ```
 
-3.  **Configure S3 no LocalStack**
+4.  **Configure S3 no LocalStack**
     ```bash
     $env:AWS_ACCESS_KEY_ID="test"
     ```
@@ -85,7 +90,7 @@ O projeto foi construído seguindo a Arquitetura Hexagonal evoluida pela equipe 
     aws --endpoint-url=http://localhost:4566 s3 mb s3://osmaster-bucket make_bucket: osmaster-bucket
     ```
 
-4.  **Subir mock do consulta CEP**
+5.  **Subir mock do consulta CEP**
     ```bash
     curl -X POST http://localhost:8080/__admin/mappings -H "Content-Type: application/json" -d '{"request": {"method": "POST", "url": "/consulta-cep", "bodyPatterns": [{"equalToJson": "{\"cep\": \"08676270\"}"}]}, "response": {"status": 200, "jsonBody": {"Logradouro": "Rua antonio miguel", "Número": 66, "Bairro": "Jardim Lincoln", "Cidade": "Suzano", "Estado": "São Paulo"}, "headers": {"Content-Type": "application/json"}}}'
     ```
